@@ -1,17 +1,20 @@
 package com.MIF50.tree;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BinaryTree {
 
     private Node root;
+    private int count;
 
     public BinaryTree(){}
 
     public void insert(int value) {
         var node = new Node(value);
-        if (isEmpty()){
+        if (isEmpty()) {
             root = node;
+            count++;
             return;
         }
 
@@ -20,23 +23,24 @@ public class BinaryTree {
             if (value < current.value) {
                 if (current.leftChild == null){
                     current.leftChild = node;
+                    count++;
                     break;
                 }
                 current = current.leftChild;
             } else {
                 if (current.rightChild == null){
                     current.rightChild = node;
+                    count++;
                     break;
                 }
                 current = current.rightChild;
             }
         }
-
     }
 
     public boolean find(int value) {
         var current = root;
-        while (current!=null){
+        while (current != null){
             if (value < current.value)
                 current = current.leftChild;
             else if (value > current.value)
@@ -65,9 +69,8 @@ public class BinaryTree {
 
     public void traverseLevelOrder() {
         var list = new ArrayList<Integer>();
-        for (int i = 0; i <= height(); i++) {
+        for (int i = 0; i <= height(); i++)
             list.addAll(getNodesAtDistance(i));
-        }
         System.out.println(list);
     }
 
@@ -75,7 +78,7 @@ public class BinaryTree {
         return height(root);
     }
 
-    public int minBinaryTree(){
+    public int minBinaryTree() {
         if (isEmpty()) throw new IllegalStateException("Your Tree is Empty");
 
         return minBinarySearchTree();
@@ -94,13 +97,122 @@ public class BinaryTree {
         var list = new ArrayList<Integer>();
         getNodesAtDistance(root,level,list);
         return list;
-
     }
 
     public void swapRoot() {
         var temp = root.leftChild;
         root.leftChild = root.rightChild;
         root.rightChild = temp;
+    }
+
+    // TODO: 2/14/21 Exercise
+    public int size() {
+        return count;
+    }
+
+    public int countLeaves() {
+        var leaves = new ArrayList<Integer>();
+        countLeaves(root,leaves);
+        return leaves.size();
+    }
+
+    public int maxBinaryTree() {
+        return maxSearchBinaryTree();
+    }
+
+    public boolean contain(int value) {
+        if (root == null) return false;
+        return contain(root,value);
+    }
+
+    public boolean isSibling(int first,int second) {
+        var firstParent = parentFor(first);
+        var secondParent = parentFor(second);
+        return secondParent != null && firstParent == secondParent;
+    }
+
+    public List<Integer> getAncestors(int value) {
+        var list = new ArrayList<Integer>();
+        getAncestors(value,list);
+        return list;
+    }
+
+    private void getAncestors(int value,ArrayList<Integer> list) {
+        var current = root;
+        var last = current;
+        while (current != null) {
+            if (current.value > value) {
+                list.add(current.value);
+                last = current;
+                current = current.leftChild;
+            } else {
+                list.add(current.value);
+                last = current;
+                current = current.rightChild;
+            }
+        }
+        if (last!= null && last.value != value)
+            list.clear();
+    }
+
+    private Node parentFor(int value) {
+        var current = root;
+        Node parent = null;
+        while (current != null) {
+            if (current.value > value) {
+                parent = current;
+                current = current.leftChild;
+            } else if (current.value < value) {
+                parent = current;
+                current = current.rightChild;
+            } else
+                return parent;
+        }
+
+        return null;
+    }
+
+    private boolean contain(Node root,int value) {
+        if (root.value == value) return true;
+        if (root.leftChild != null && contain(root.leftChild, value))
+            return true;
+        if (root.rightChild != null && contain(root.rightChild, value))
+            return true;
+
+        return false;
+    }
+
+    // O(n)
+    private int maxBinaryTree(Node root) {
+        if (root == null) return 0;
+        if (isLeaf(root)) return root.value;
+        var left = maxBinaryTree(root.leftChild);
+        var right = maxBinaryTree(root.rightChild);
+
+        return Math.max(root.value,Math.max(left,right));
+    }
+
+    // O(log(n))
+    private int maxSearchBinaryTree() {
+        if (root == null) return 0;
+        var current = root;
+        var last = current;
+        while (current != null) {
+            last = current;
+            current = current.rightChild;
+        }
+        return last.value;
+    }
+
+    private void countLeaves(Node root,ArrayList<Integer> countLeaves) {
+        if (root == null) return;
+        if (isLeaf(root)) {
+            countLeaves.add(1);
+            return;
+        }
+
+        countLeaves(root.leftChild,countLeaves);
+        countLeaves(root.rightChild,countLeaves);
     }
 
     // TODO: 9/28/20 Private Traverse
@@ -166,7 +278,7 @@ public class BinaryTree {
         return node.leftChild == null && node.rightChild == null;
     }
 
-    private boolean equals(Node first, Node second){
+    private boolean equals(Node first, Node second) {
         if (first == null && second == null) return true;
 
         if(first != null && second != null)
@@ -177,7 +289,7 @@ public class BinaryTree {
         return false;
     }
 
-    private boolean isBinarySearchTree(Node node, int min, int max){
+    private boolean isBinarySearchTree(Node node, int min, int max) {
         if (node == null) return true;
 
         if (node.value < min || node.value > max) return false;
