@@ -4,13 +4,11 @@ public class AVLTree {
 
     private AVLNode root;
 
-    public AVLTree(){}
-
-    public void insert(int value){
+    public void insert(int value) {
         root = insert(root,value);
     }
 
-    private AVLNode insert(AVLNode root,int value){
+    private AVLNode insert(AVLNode root,int value) {
         if (root == null)
             return new AVLNode(value);
 
@@ -21,16 +19,15 @@ public class AVLTree {
 
         setHeight(root);
 
-        return  balance(root);
+        return balance(root);
     }
 
-    private AVLNode balance(AVLNode root){
-        if (isLeftHeavy(root)){
+    private AVLNode balance(AVLNode root) {
+        if (isLeftHeavy(root)) {
             if (balanceFactor(root.leftChild) < 0)
                 root.leftChild = rotateLeft(root.leftChild);
             return rotateRight(root);
-        }
-        else if (isRightHeavy(root)){
+        } else if (isRightHeavy(root)) {
             if (balanceFactor(root.rightChild) > 0)
                 root.rightChild = rotateRight(root.rightChild);
             return rotateLeft(root);
@@ -38,7 +35,7 @@ public class AVLTree {
         return root;
     }
 
-    private AVLNode rotateLeft(AVLNode root){
+    private AVLNode rotateLeft(AVLNode root) {
         var newRoot = root.rightChild;
 
         root.rightChild = newRoot.leftChild;
@@ -50,7 +47,7 @@ public class AVLTree {
         return newRoot;
     }
 
-    private AVLNode rotateRight(AVLNode root){
+    private AVLNode rotateRight(AVLNode root) {
         var newRoot = root.leftChild;
 
         root.leftChild = newRoot.rightChild;
@@ -62,7 +59,7 @@ public class AVLTree {
         return newRoot;
     }
 
-    private void setHeight(AVLNode node){
+    private void setHeight(AVLNode node) {
         node.height = Math.max(
                 height(node.leftChild),
                 height(node.rightChild)) + 1;
@@ -76,7 +73,7 @@ public class AVLTree {
         return balanceFactor(node) < -1;
     }
 
-    private int balanceFactor(AVLNode node){
+    private int balanceFactor(AVLNode node) {
         return (node == null)? 0 : height(node.leftChild) - height(node.rightChild);
     }
 
@@ -84,8 +81,8 @@ public class AVLTree {
         return (node == null)? -1 : node.height;
     }
 
-    private class AVLNode{
-        private int value;
+    private static class AVLNode {
+        private final int value;
         private AVLNode leftChild;
         private AVLNode rightChild;
         private int height;
