@@ -3,14 +3,37 @@ package com.MIF50.avl_tree;
 public class AVLTree {
 
     private AVLNode root;
+    private int size;
 
+    public boolean isBalanced() {
+        return isBalanced(root);
+    }
+
+    private boolean isBalanced(AVLNode root) {
+        if (root == null) return true;
+        if (isLeftHeavy(root) || isRightHeavy(root))
+            return false;
+
+        return isBalanced(root.leftChild) && isBalanced(root.rightChild);
+    }
+
+    public boolean isPrefect() {
+        return isPrefect(root);
+    }
+
+    private boolean isPrefect(AVLNode root) {
+        return getSize() == Math.pow(2,height(root) + 1) - 1;
+    }
+    
     public void insert(int value) {
         root = insert(root,value);
     }
 
     private AVLNode insert(AVLNode root,int value) {
-        if (root == null)
+        if (root == null) {
+            size++;
             return new AVLNode(value);
+        }
 
         if (value < root.value)
             root.leftChild = insert(root.leftChild,value);
@@ -60,9 +83,7 @@ public class AVLTree {
     }
 
     private void setHeight(AVLNode node) {
-        node.height = Math.max(
-                height(node.leftChild),
-                height(node.rightChild)) + 1;
+        node.height = Math.max(height(node.leftChild), height(node.rightChild)) + 1;
     }
 
     private boolean isLeftHeavy(AVLNode node){
@@ -79,6 +100,10 @@ public class AVLTree {
 
     private int height(AVLNode node){
         return (node == null)? -1 : node.height;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     private static class AVLNode {
