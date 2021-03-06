@@ -5,7 +5,7 @@ package com.MIF50.heap;
 
 public class PriorityQueueWithHeap {
 
-    private Heap heap = new Heap();
+    private final Heap heap = new Heap();
 
     public void enqueue(int item){
         heap.insert(item);

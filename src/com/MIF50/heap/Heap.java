@@ -6,7 +6,7 @@ package com.MIF50.heap;
 
 public class Heap {
 
-    private int [] items;
+    private final int [] items;
     private int size;
 
     public Heap(){
@@ -99,7 +99,7 @@ public class Heap {
         var index = size - 1;
         while (index > 0 && items[index] > items[parent(index)]){
             swap(index,parent(index));
-            index = (index - 1) / 2;
+            index = parent(index);
         }
     }
 
