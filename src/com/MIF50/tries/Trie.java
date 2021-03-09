@@ -14,7 +14,7 @@ public class Trie {
 
     public void insert(String word) {
         var current = root;
-        for(char ch: word.toCharArray()){
+        for(var ch: word.toCharArray()){
             if (!current.hasChild(ch))
                 current.addChild(ch);
             current = current.getChild(ch);
@@ -23,10 +23,11 @@ public class Trie {
     }
 
     public boolean contains(String word) {
-        if (word == null) return false;
+        if (word == null)
+            return false;
 
         var current = root;
-        for (char ch: word.toCharArray()){
+        for (var ch: word.toCharArray()){
             if (!current.hasChild(ch)) return false;
             current = current.getChild(ch);
         }
@@ -34,35 +35,19 @@ public class Trie {
         return current.isEndOfWord;
     }
 
-    public boolean containsRecursive(String words) {
-        if (words == null) return false;
-        return containsRecursive(root,words,0);
-    }
-
-    private boolean containsRecursive(Node root,String word,int index) {
-        if (index == word.length())
-            return root.isEndOfWord;
-
-        var ch = word.charAt(index);
-        var child = root.getChild(ch);
-        if (child == null) return false;
-
-       return containsRecursive(child,word,index + 1);
-    }
-
     public void traversal(){
         traversal(root);
     }
 
     private void traversal(Node root) {
-        // pre-order traversal
+        // pre-order traversal used for print.
         
 //        System.out.println(root.value);
 //        for (var child: root.getChildren()){
 //            traversal(child);
 //        }
 
-        // post-order traversal
+        // post-order traversal used for delete.
         for (var child: root.getChildren()){
             traversal(child);
         }
@@ -70,7 +55,8 @@ public class Trie {
     }
 
     public void remove(String word) {
-        if (word == null) return;
+        if (word == null)
+            return;
         remove(root,word,0);
     }
 
@@ -82,12 +68,31 @@ public class Trie {
 
         var ch = word.charAt(index);
         var child = root.getChild(ch);
-        if (child == null) return;
+        if (child == null)
+            return;
         remove(child,word,index + 1);
 
         if (!child.hasChildren() && !child.isEndOfWord)
             root.removeChild(ch);
 
+    }
+
+    public boolean containsRecursive(String words) {
+        if (words == null)
+            return false;
+        return containsRecursive(root,words,0);
+    }
+
+    private boolean containsRecursive(Node root,String word,int index) {
+        if (index == word.length())
+            return root.isEndOfWord;
+
+        var ch = word.charAt(index);
+        var child = root.getChild(ch);
+        if (child == null)
+            return false;
+
+        return containsRecursive(child,word,index + 1);
     }
 
     public List<String> findWords(String prefix) {
@@ -98,9 +103,11 @@ public class Trie {
     }
 
     private Node findLastNodeOf(String prefix) {
-        if (prefix == null) return null;
+        if (prefix == null)
+            return null;
+
         var current = root;
-        for (char ch: prefix.toCharArray()){
+        for (var ch: prefix.toCharArray()) {
             var child = current.getChild(ch);
             if (child == null) return null;
             current = child;
@@ -114,9 +121,8 @@ public class Trie {
         if (root.isEndOfWord)
             words.add(prefix);
 
-        for (Node child: root.getChildren()){
+        for (var child: root.getChildren())
             findWords(child,prefix+child.value,words);
-        }
     }
 
     public int countWords() {
@@ -126,21 +132,21 @@ public class Trie {
     }
 
     private void countWords(Node root, ArrayList<Integer> counts) {
-        if (root == null) return;
+        if (root == null)
+            return;
 
         if (root.isEndOfWord)
             counts.add(0);
 
-        for (var child: root.getChildren()){
+        for (var child: root.getChildren())
             countWords(child,counts);
-        }
     }
 
     public String longestCommonPrefix() {
         var current = root;
         var prefix = new StringBuilder();
-        while (current.getChildren().length == 1 && !current.isEndOfWord) {
-            for (var child: current.getChildren()){
+        while (current.childrenLength() == 1 && !current.isEndOfWord) {
+            for (var child: current.getChildren()) {
                 prefix.append(child.value);
                 current = child;
             }
@@ -150,6 +156,7 @@ public class Trie {
 
     // Node class
     private static class Node {
+
         private final char value;
         private final HashMap<Character,Node> children = new HashMap<>();
         private boolean isEndOfWord;
@@ -180,6 +187,10 @@ public class Trie {
 
         public void removeChild(char ch){
             children.remove(ch);
+        }
+
+        public int childrenLength() {
+            return getChildren().length;
         }
 
         @Override
