@@ -13,14 +13,14 @@ public class Heap {
         items = new int[10];
     }
 
-    public void insert(int value){
+    public void insert(int value) {
         if (isFull())
             throw new IllegalStateException();
         items[size++] = value;
         bubbleUp();
     }
 
-    public int remove(){
+    public int remove() {
         if (isEmpty()) throw new IllegalStateException();
         var root = items[0];
         items[0] = items[--size];
@@ -28,7 +28,7 @@ public class Heap {
         return root;
     }
 
-    public int max(){
+    public int max() {
         if (isEmpty()){
             throw new IllegalStateException();
         }

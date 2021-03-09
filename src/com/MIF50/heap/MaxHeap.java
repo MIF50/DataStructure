@@ -22,6 +22,18 @@ public class MaxHeap {
         return heap.max();
     }
 
+    public static boolean isMaxHeap(int[] array) {
+        var lastParentIndex = (array.length / 2) - 1;
+        for (int i = 0; i < lastParentIndex; i++) {
+            if (array[leftChildIndex(i)] > array[i])
+                return false;
+
+            if (array[rightChildIndex(i)] > array[i])
+                return false;
+        }
+        return true;
+    }
+
     private static void heapify(int[] array, int index) {
         var largerIndex = index;
 
@@ -44,5 +56,13 @@ public class MaxHeap {
         var temp = array[first];
         array[first] = array[second];
         array[second] = temp;
+    }
+
+    private static int leftChildIndex(int parent) {
+        return parent * 2 + 1;
+    }
+
+    private static int rightChildIndex(int parent) {
+        return parent * 2 + 2;
     }
 }
