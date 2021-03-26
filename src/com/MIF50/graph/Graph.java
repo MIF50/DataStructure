@@ -59,8 +59,11 @@ public class Graph {
             if (visited.contains(current))
                 continue;
 
+            // mark it as visited
             System.out.println(current.label);
             visited.add(current);
+
+            // visit all neighbour
             for (var neighbour: adjacencyList.get(current)) {
                 if (!visited.contains(neighbour))
                     stack.push(neighbour);
@@ -78,8 +81,10 @@ public class Graph {
     }
 
     private void traverseDepthFirstRec(Node node, Set<Node> visited) {
+        // mark it as visited
         System.out.println(node);
         visited.add(node);
+        // visit all neighbour
         for (var neighbour :adjacencyList.get(node)) {
             if (!visited.contains(neighbour))
                 traverseDepthFirstRec(neighbour,visited);
@@ -101,9 +106,11 @@ public class Graph {
             if (visited.contains(current))
                 continue;
 
+            // mark it as visited
             System.out.println(current);
             visited.add(current);
 
+            // visit all neighbour
             for (var neighbour: adjacencyList.get(current)) {
                 if (!visited.contains(neighbour))
                     queue.add(current);
@@ -127,9 +134,8 @@ public class Graph {
 
         visited.add(node);
 
-        for (var neighbour: adjacencyList.get(node)) {
+        for (var neighbour: adjacencyList.get(node))
             topologicalSort(neighbour,stack,visited);
-        }
 
         stack.push(node);
     }
@@ -175,19 +181,19 @@ public class Graph {
         return false;
     }
 
+    private Node validateNode(String label) {
+        var node = nodes.get(label);
+        if (node == null)
+            throw new IllegalArgumentException("node " + label + " not found in Graph");
+        return node;
+    }
+
     public void print() {
         for (var source: adjacencyList.keySet()) {
             var targets = adjacencyList.get(source);
             if (!targets.isEmpty())
                 System.out.println(source + " is connected to " +targets);
         }
-    }
-
-    private Node validateNode(String label) {
-        var node = nodes.get(label);
-        if (node == null)
-            throw new IllegalArgumentException("node "+label+" not found in Graph");
-        return node;
     }
 
     private static class Node {
