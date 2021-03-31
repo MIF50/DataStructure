@@ -1,25 +1,30 @@
 package com.MIF50;
 
-import com.MIF50.undirected_graph.WeightedGraph;
+import com.MIF50.sort.BubbleSort;
+import com.MIF50.sort.InsertionSort;
+import com.MIF50.sort.MergeSort;
+import com.MIF50.sort.SelectionSort;
+
+import java.util.Arrays;
 
 public class Main {
 
     public static void main(String[] args) {
-        var graph = new WeightedGraph();
-        graph.addNode("A");
-        graph.addNode("B");
-        graph.addNode("C");
-        graph.addNode("D");
+        int[] array = {1,2,8,3,1,4};
+//        var sorter = new BubbleSort();
+//        sorter.sort(array);
+//        System.out.println(Arrays.toString(array));
 
-        graph.addEdge("A","B",4);
-        graph.addEdge("A", "C",1);
-        graph.addEdge("B","C",2);
-        graph.addEdge("C","D",5);
-        graph.addEdge("D", "B",4);
+//        var sorter2 = new SelectionSort();
+//        sorter2.sort(array);
+//        System.out.println(Arrays.toString(array));
 
-        var tree = graph.getMinimSpanningTree();
-        tree.print();
+//        var sorter2 = new InsertionSort();
+//        sorter2.sort(array);
+//        System.out.println(Arrays.toString(array));]
 
-
+        var sorter2 = new MergeSort();
+        sorter2.sort(array);
+        System.out.println(Arrays.toString(array));
     }
 }
