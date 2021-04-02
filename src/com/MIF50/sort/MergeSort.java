@@ -7,14 +7,8 @@ public class MergeSort {
             return;
 
         var middle = array.length / 2;
-
-        int[] left = new int[middle];
-        for (var i = 0;i < middle;i++)
-            left[i] = array[i];
-
-        int[] right = new int[array.length - middle];
-        for (var i = middle; i < array.length;i++)
-            right[i-middle] = array[i];
+        int[] left = getLeft(array, middle);
+        int[] right = getRight(array, middle);
 
         sort(left);
         sort(right);
@@ -22,8 +16,22 @@ public class MergeSort {
         merge(left,right,array);
     }
 
+    private int[] getLeft(int[] array, int middle) {
+        int[] left = new int[middle];
+        for (var i = 0; i < middle; i++)
+            left[i] = array[i];
+        return left;
+    }
+
+    private int[] getRight(int[] array, int middle) {
+        int[] right = new int[array.length - middle];
+        for (var i = middle; i < array.length; i++)
+            right[i- middle] = array[i];
+        return right;
+    }
+
     private void merge(int[] left, int[] right,int[] result) {
-        int i = 0 , j = 0 , k = 0;
+        int i=0 , j=0 , k=0;
         while (i < left.length && j < right.length) {
             if (left[i] <=  right[j])
                 result[k++] = left[i++];

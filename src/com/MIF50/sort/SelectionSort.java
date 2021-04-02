@@ -3,7 +3,7 @@ package com.MIF50.sort;
 public class SelectionSort {
 
     public void sort(int[] array) {
-        for (var i = 0;i<array.length;i++){
+        for (var i = 0;i < array.length;i++){
             var minIndex = findMinIndex(array,i);
             swap(array,i,minIndex);
         }
