@@ -34,7 +34,7 @@ public class Stack {
     }
 
     public boolean isEmpty(){
-        return count==0;
+        return count == 0;
     }
 
 

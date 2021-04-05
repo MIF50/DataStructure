@@ -11,7 +11,7 @@ public class MinStack {
             return;
         }
 
-        var newNode = new Node(item,Math.min(item,top.min));
+        var newNode = new Node(item, Math.min(item, top.min));
         newNode.next = top;
         top = newNode;
     }
@@ -41,9 +41,9 @@ public class MinStack {
 
     private boolean isEmpty() { return top == null; }
 
-    private class Node {
-        private int value;
-        private int min;
+    private static class Node {
+        private final int value;
+        private final int min;
         private Node next;
 
         public Node(int value,int min) {

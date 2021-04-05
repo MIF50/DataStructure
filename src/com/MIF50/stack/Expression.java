@@ -20,7 +20,8 @@ public class Expression {
                     return false;
 
                 var top = stack.pop();
-                if (!bracketMatch(ch,top))return false;
+                if (!bracketMatch(ch,top))
+                    return false;
             }
         }
 

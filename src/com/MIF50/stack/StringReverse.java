@@ -9,13 +9,13 @@ public class StringReverse {
             throw new IllegalArgumentException();
 
         var stack = new Stack<Character>();
-        for (char ch : input.toCharArray()) {
+        for (char ch : input.toCharArray())
             stack.push(ch);
-        }
+
         var textReverse = new StringBuilder();
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty())
             textReverse.append(stack.pop());
-        }
+
         return textReverse.toString();
     }
 }
