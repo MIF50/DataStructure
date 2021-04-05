@@ -24,7 +24,11 @@ public class Main {
 //        sorter2.sort(array);
 //        System.out.println(Arrays.toString(array));
 
-        var sorter2 = new QuickSort();
+//        var sorter2 = new QuickSort();
+//        sorter2.sort(array);
+//        System.out.println(Arrays.toString(array));
+
+        var sorter2 = new CountingSort();
         sorter2.sort(array);
         System.out.println(Arrays.toString(array));
     }
