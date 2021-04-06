@@ -28,7 +28,11 @@ public class Main {
 //        sorter2.sort(array);
 //        System.out.println(Arrays.toString(array));
 
-        var sorter2 = new CountingSort();
+//        var sorter2 = new CountingSort();
+//        sorter2.sort(array);
+//        System.out.println(Arrays.toString(array));
+
+        var sorter2 = new BucketSort();
         sorter2.sort(array);
         System.out.println(Arrays.toString(array));
     }
