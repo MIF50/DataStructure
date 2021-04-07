@@ -1,39 +1,13 @@
 package com.MIF50;
 
-import com.MIF50.sort.*;
-
-import java.util.Arrays;
+import com.MIF50.search.Search;
 
 public class Main {
 
     public static void main(String[] args) {
-        int[] array = {1,2,8,3,1,4 };
-//        var sorter = new BubbleSort();
-//        sorter.sort(array);
-//        System.out.println(Arrays.toString(array));
-
-//        var sorter2 = new SelectionSort();
-//        sorter2.sort(array);
-//        System.out.println(Arrays.toString(array));
-
-//        var sorter2 = new InsertionSort();
-//        sorter2.sort(array);
-//        System.out.println(Arrays.toString(array));]
-
-//        var sorter2 = new MergeSort();
-//        sorter2.sort(array);
-//        System.out.println(Arrays.toString(array));
-
-//        var sorter2 = new QuickSort();
-//        sorter2.sort(array);
-//        System.out.println(Arrays.toString(array));
-
-//        var sorter2 = new CountingSort();
-//        sorter2.sort(array);
-//        System.out.println(Arrays.toString(array));
-
-        var sorter2 = new BucketSort();
-        sorter2.sort(array);
-        System.out.println(Arrays.toString(array));
+        int[] array = {3,5,6,9,11,18,20,21,24,30 };
+        var search = new Search();
+        var index = search.exponentialSearch(array,30);
+        System.out.println(index);
     }
 }

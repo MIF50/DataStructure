@@ -37,7 +37,7 @@ public class BucketSort {
         private final LinkedList<Integer> linkedList;
 
         public BucketLinkedList() {
-            linkedList = new LinkedList();
+            linkedList = new LinkedList<Integer>();
         }
 
         public void add(int number) {
